@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Homepage</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {margin: 0; height: 100vh;}
+            .navbar {background-color: darkblue; display: flex; justify-content: space-between; align-items: center; width: 100%;
+                position: fixed; top: 0; padding: 0 20px; height: 90px;}
+            .navbar a {color: white; text-align: center; padding: 14px 16px; text-decoration: none; flex: 1; text-align: center; font-size: 30px;}
+            #totals-container {display: flex; flex-direction: column; align-items: center; justify-content: center;
+                height: 100vh;}
+
+            #total-income, #total-expenses, #balance {text-align: center; margin: 10px 0; height: 15vh;}
+            .value {font-size: 85px; color: green;}
+            .valuee {font-size: 85px; color: darkblue;}
+            .label {font-size: 50px; color: black;}
+            .labelb {font-size: 80px;}
+            .valueb {color: darkorange; font-size: 150px;}
+            .container {display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center
+                ; padding: 3px;}
+            p {font-size: 40px; color: rgba(0, 0, 0, 0.3);}
+            @media (max-width: 600px) {.container {flex-direction: column;}}
+        </style>
+    </head>
+    <body>
+        <div class="navbar">
+            <a href="/income">INCOME</a>
+            <a href="/expenses">EXPENSES</a>
+            <a href="/year">YEAR</a>
+            <a href="/logout">LOG OUT</a>
+            <a href="#" onclick="document.getElementById('delete-form').submit();">DELETE ACCOUNT</a>
+            <form id="delete-form" action="/delete_account" method="POST" style="display: none;">
+        </div>
+        <div class="container">
+            {% if show_message %}
+                <p>Welcome to Orderly Finances. Start your journey by registering some incomes and expenses!</p>
+            {% else %}
+            <div id="totals-container">
+                <div id="total-income">
+                    <div class="label">Total Income: <span class="value">${{ total_income }}</span></div>
+                </div>
+                <div id="total-expenses">
+                    <div class="label">Total Expenses: <span class="valuee">${{ total_expenses }}</span></div>
+                </div>
+                <div id="balance">
+                    <div class="labelb">BALANCE: <span class="valueb">${{ balance }}</span></div>
+                </div>
+            </div>
+            {% endif %}
+        </div>F
+    </body>
+</html>

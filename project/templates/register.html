@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Register</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {background-image: url('https://media.istockphoto.com/id/1364223865/photo/close-up-an-accountant-working-about-financial-with-calculator-at-his-office-to-calculate.jpg?s=612x612&w=0&k=20&c=N-LykncXLmY4hh4-zNVOzTfcYC6IA7ibTmb29c25o9k=');
+             display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-repeat: no-repeat; background-size: cover;
+             background-position: center;}
+            form {display: flex; flex-direction: column; align-items: center;}
+            input, button {margin: 5px; width: 200px; height: 40px; font-size: 16px;}
+            h1 {color: black; text-align: center; font-size: 40px;}
+            button {background-color: green; color: white;}
+            .container {background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 50px rgba(0, 0, 0, 0.9); text-align: center;
+                width: 300px; height: auto;}
+            .error-message {color: red; margin-top: 10px; list-style-type: none; text-align: center; padding: 0;}
+            @media (max-width: 600px) {.container {flex-direction: column;}}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <form action = "/register" method = "post">
+                <h1>ORDERLY FINANCES</h1>
+                <input name = "username" type = "text" placeholder = "Username">
+                <input name = "password" type = "password" placeholder = "password">
+                <input name = "confirmation" type = "password" placeholder = "confirmation">
+                <input type="hidden" name="submitted" value="true">
+                <button type="submit">Register</button>
+            </form>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class="error-message">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </body>
+</html>

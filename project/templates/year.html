@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year Summary</title>
+    <style>
+        body {background-image: url(https://img.freepik.com/fotos-premium/marco-hojas-otono_643934-23202.jpg?ga=GA1.1.2124763117.1732750154&semt=ais_hybrid);
+            background-size: cover; background-repeat: no-repeat; background-attachment: fixed;}
+        .summary-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+        .summary-item {
+            background-color: white;
+            border: 1px solid black;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 200px;
+        }
+        .year-summary-header {
+            font-size: 55px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+            text-align: center;
+            width: 100%;
+            height: auto;
+            background-color: darkorange;
+            color: white;
+        }
+        .year-header {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 60px;
+            color: #333;
+            margin-left: 70px;
+        }
+        .exit button{padding: 10px 30px; font-size: 20px; display: block;
+            margin: 10px auto 0 auto; background-color: darkorange; color: white;}
+        @media (max-width: 600px) {.container {flex-direction: column;}}
+    </style>
+    </head>
+    <body>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <h1 class="year-summary-header">Year Summary</h1>
+            {% for year, rows in grouped_summary.items() %}
+                <h1 class="year-header">{{ year }}</h1>
+                <div class="summary-container">
+                    {% for row in rows %}
+                        <div class="summary-item">
+                            <p>Month: {{ row.month }}</p>
+                            <p>Total Income: ${{ row.t_income }}</p>
+                            <p>Total Expenses: ${{ row.t_expenses }}</p>
+                            <p>Balance: ${{ row.balance }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        <div class="exit">
+            <form action="/homepage" method="post">
+                <button type="submit">Done</button>
+            </form>
+        </div>
+    </body>
+</html>

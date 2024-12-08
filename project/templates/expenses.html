@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Expenses</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {background-image: url(https://img.freepik.com/vector-gratis/vector-fondo-pantalla-movil-espacio-copia-botanica-azul_53876-170876.jpg);
+                background-size: cover; background-repeat: no-repeat; background-attachment: fixed;}
+            .container {padding: 20px; border-radius: 10px; box-shadow: 0 0 50px rgba(0, 0, 0, 0.9); text-align: center;
+            width: 97%; height: auto; background-color: darkblue; color: white;}
+
+            .table {text-align: center;}
+
+            .table button {background-color: red; color: white;}
+
+            .table table {margin: 0 auto; border-collapse: collapse; width: 80%;}
+
+            .table th, .table td {border: 1px solid black; padding: 8px; text-align: center;}
+
+            .exit button {padding: 15px 30px; font-size: 20px; background-color: lightblue; color: black; display: block;
+            margin: 20px auto 0 auto;}
+
+            .total-expenses-table {margin-top: 20px; text-align: center;}
+            .total-expenses-table table {margin: 0 auto; border-collapse: collapse; width: 80%;}
+            .total-expenses-table th, .total-expenses-table td {border: 1px solid black; padding: 8px; text-align: center;}
+            @media (max-width: 600px) {.container {flex-direction: column;}}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <form action = "/expenses" method = "post">
+                <h1>UPDATE YOUR EXPENSES!</h1>
+                <input name = "type_expenses" type = "text" placeholder = "Name of expenses" required>
+                <input name = "expenses" type = "number" placeholder = "Enter your expenses" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        <div class="table">
+            <h2>Your Expenses</h2>
+            <table>
+                <tr>
+                    <th>Expenses</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+                {% for expense in expenses %}
+                    {% if expense.type_expenses and expense.expenses %}
+                        <tr>
+                            <td>{{ expense.type_expenses }}</td>
+                            <td>${{ expense.expenses }}</td>
+                            <td>
+                                <form action="/expenses" method="post" style="display:inline;">
+                                    <input type="hidden" name="expenses_id" value="{{ expense.id }}">
+                                    <button type="submit" name="delete_income">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+        <div class="total-expenses-table">
+            <table>
+                <tr>
+                  <th>Total Expenses</th>
+                </tr>
+                <tr>
+                  <td>${{ total_expenses if total_expenses else 0 }}</td>
+                </tr>
+              </table>
+        </div>
+        <div class="exit">
+            <form action="/homepage" method="post">
+                <button type="submit">Done</button>
+            </form>
+        </div>
+    </body>
+</html>

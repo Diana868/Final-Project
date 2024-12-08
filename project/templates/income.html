@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Income</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {background-image: url(https://image.slidesdocs.com/responsive-images/background/leaves-green-nature-water-blooming-beautiful-powerpoint-background_82e92c9873__960_540.jpg);
+                background-size: cover; background-repeat: no-repeat; background-attachment: fixed;}
+
+            .container {padding: 20px; border-radius: 10px; box-shadow: 0 0 50px rgba(0, 0, 0, 0.9); text-align: center;
+            width: 97%; height: auto; background-color: green; color: white;}
+
+            .table {text-align: center;}
+
+            .table button {background-color: red; color: white;}
+
+            .table table {margin: 0 auto; border-collapse: collapse; width: 80%;}
+
+            .table th, .table td {border: 1px solid black; padding: 8px; text-align: center;}
+
+            .exit button {padding: 15px 30px; font-size: 20px; background-color: lightgreen; color: black; display: block;
+            margin: 20px auto 0 auto;}
+
+            .total-income-table {margin-top: 20px; text-align: center;}
+            .total-income-table table {margin: 0 auto; border-collapse: collapse; width: 80%;}
+            .total-income-table th, .total-income-table td {border: 1px solid black; padding: 8px; text-align: center;}
+            @media (max-width: 600px) {.container {flex-direction: column;}}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <form action = "/income" method = "post">
+                <h1>UPDATE YOUR INCOMES!</h1>
+                <input name = "type_income" type = "text" placeholder = "Name of income" required>
+                <input name = "income" type = "number" placeholder = "Enter your income" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        <div class="table">
+            <h2>Your Incomes</h2>
+            <table>
+                <tr>
+                    <th>Income</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+                {% for income in incomes %}
+                    {% if income.type_income and income.income %}
+                        <tr>
+                            <td>{{ income.type_income }}</td>
+                            <td>${{ income.income }}</td>
+                            <td>
+                                <form action="/income" method="post" style="display:inline;">
+                                    <input type="hidden" name="income_id" value="{{ income.id }}">
+                                    <button type="submit" name="delete_income">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+        <div class="total-income-table">
+            <table>
+                <tr>
+                  <th>Total Income</th>
+                </tr>
+                <tr>
+                  <td>${{ total_income if total_income else 0 }}</td>
+                </tr>
+              </table>
+        </div>
+        <div class="exit">
+            <form action="/homepage" method="post">
+                <button type="submit">Done</button>
+            </form>
+        </div>
+    </body>
+</html>
